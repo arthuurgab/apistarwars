@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Star Wars Wiki</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'Star Jedi';
+        src: url('fonts/starjedi/Starjedi.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'Star Jedi Hollow';
+        src: url('fonts/starjedi/Starjhol.ttf') format('truetype');
+    }
+
+    h1 {
+        font-family: 'Star Jedi', sans-serif;
+    }
+
+    p {
+        font-family: 'Nunito', sans-serif;
+    }
+</style>
+<body>
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="imagens/star wars navbar.svg" class="h-8" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Star Wars Wiki</span>
+            </a>
+            <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
+            <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+                <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="index.html" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Filmes</a>
+                    </li>
+                    <li>
+                        <a href="naves.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Naves</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+        
+    <!-- Div com botões -->
+    
+</body>
+
+<script>
+    const filmsAPI = 'https://swapi.dev/api/films/';
+    const filmsImagens = {
+        "A New Hope": "https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/91/98/26/20172772.jpg",
+        "The Empire Strikes Back": "https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/72/73/89/20535463.jpg",
+        "Return of the Jedi": "https://br.web.img3.acsta.net/c_310_420/pictures/14/05/19/22/57/276761.jpg",
+        "The Phantom Menace": "https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/87/89/29/20039769.jpg",
+        "Attack of the Clones": "https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/92/58/12/20207108.jpg",
+        "Revenge of the Sith": "https://br.web.img2.acsta.net/c_310_420/medias/nmedia/18/92/58/33/20207204.jpg",
+        "The Force Awakens": "https://br.web.img3.acsta.net/c_310_420/pictures/15/10/18/18/39/408904.jpg",
+    }
+    
+    fetch(filmsAPI)
+        .then(response => response.json())
+        .then(data => {
+            const filmes = data.results;  
+            const cardContainer = document.getElementById('cardContainer');
+    
+            filmes.forEach(film => {
+                const filmImage = filmsImagens[film.title] || 'https://via.placeholder.com/300x200.png?text=Star+Wars';
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'border', 'border-gray-200', 'rounded-lg', 'shadow-md');
+    
+                card.innerHTML = `
+                    <img class="rounded-t-lg w-full h-64 object-cover" src="${filmImage}" alt="Poster do Filme ${film.title}" />
+                    <div class="p-5">
+                        <h1 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">${film.title}</h1>
+                        <p class="mb-3 font-normal text-gray-700"><strong>Data de lançamento:</strong> ${new Date(film.release_date).toLocaleDateString('pt-BR')}</p>
+                        <p class="mb-3 font-normal text-gray-700"><strong>Diretor:</strong> ${film.director}</p>
+                        <p class="mb-3 font-normal text-gray-700"><strong>Produtor:</strong> ${film.producer}</p>
+                        <p class="mb-3 font-normal text-gray-700"><strong>Sinopse:</strong> ${film.opening_crawl.slice(0, 100)}...</p>
+                        <button type="button" class="text-white bg-[#050708] hover:bg-[#050708]/80 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 me-2 mb-2">
+                            Veja Mais Informações
+                            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            </svg>
+                        </button>
+                        </div>
+                `;
+                cardContainer.appendChild(card);
+            });
+        })
+        .catch(error => console.error('Erro ao buscar filmes:', error));
+    
+    </script>
+</html>
